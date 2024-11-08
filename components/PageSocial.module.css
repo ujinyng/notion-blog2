@@ -3,13 +3,13 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  color: var(--fg-color);
+  color: var(--fg-z);
 }
 
 .action {
   position: relative;
   border-radius: 50%;
-  border: 2px solid var(--fg-color-6);
+  border: 2px solid #9B9A97;
   transition: all 300ms ease-out;
   width: 3.5em;
   height: 3.5em;
@@ -43,7 +43,7 @@
 .actionBg svg {
   width: 50%;
   height: 50%;
-  fill: var(--fg-color-6);
+  fill: #9B9A97;
 }
 
 .actionBgPane {

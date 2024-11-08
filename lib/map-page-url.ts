@@ -2,7 +2,7 @@ import { type ExtendedRecordMap } from 'notion-types'
 import { parsePageId, uuidToId } from 'notion-utils'
 
 import { includeNotionIdInUrls } from './config'
-import { getCanonicalPageId } from './get-canonical-page-id'
+import { getCanonicalPageId } from './custom-get-canonical-page-id'
 import { type Site } from './types'
 
 // include UUIDs in page URLs during local development but not in production

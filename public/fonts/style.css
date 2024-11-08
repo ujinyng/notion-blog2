@@ -1,0 +1,95 @@
+  @font-face {
+    font-family: "NanumSquare";
+    src: url('/fonts/NanumSquare/NanumSquareR.woff2') format("woff2"),
+    url('/fonts/NanumSquare/NanumSquareR.woff') format("woff"),
+    url('/fonts/NanumSquare/NanumSquareR.ttf') format("truetype");
+    font-display: auto;
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "NanumSquare";
+    src: url('/fonts/NanumSquare/NanumSquareB.woff2') format("woff2"),
+    url('/fonts/NanumSquare/NanumSquareB.woff') format("woff"),
+    url('/fonts/NanumSquare/NanumSquareB.ttf') format("truetype");
+    font-display: auto;
+    font-weight: bold;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "NanumSquare";
+    src: url('/fonts/NanumSquare/NanumSquareL.woff2') format("woff2"),
+    url('/fonts/NanumSquare/NanumSquareL.woff') format("woff"),
+    url('/fonts/NanumSquare/NanumSquareL.ttf') format("truetype");
+    font-display: auto;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Binggrae-Two';
+    src: url('/fonts/Binggrae2/Binggrae2.woff2') format('woff2'),
+         url('/fonts/Binggrae2/Binggrae2.woff') format('woff'),
+         url('/fonts/Binggrae2/Binggrae2.ttf') format('truetype');
+    font-display: auto;
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'NotoSerifKR';
+    src: url('/fonts/NotoSerif/NotoSerifKR-Medium.woff2') format('woff2'),
+    url('/fonts/NotoSerif/NotoSerifKR-Medium.woff') format('woff'),
+    url('/fonts/NotoSerif/NotoSerifKR-Medium.otf') format('opentype');;
+    font-display: auto;
+    font-weight: medium;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'NotoSerifKR';
+    src: url('/fonts/NotoSerif/NotoSerifKR-SemiBold.woff2') format('woff2'),
+    url('/fonts/NotoSerif/NotoSerifKR-SemiBold.woff') format('woff'),
+    url('/fonts/NotoSerif/NotoSerifKR-SemiBold.otf') format('opentype');
+    font-display: auto;
+    font-weight: bold;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'NanumSquareRound';
+    src: url('/fonts/NanumSquareRound/NanumSquareRoundR.woff2') format('woff2'),
+    url('/fonts/NanumSquareRound/NanumSquareRoundR.otf') format('opentype');
+    font-display: auto;
+    font-weight: normal;
+    font-style: normal;
+
+  }
+  @font-face {
+    font-family: 'NanumSquareRound';
+    src:  url('/fonts/NanumSquareRound/NanumSquareRoundL.woff2') format('woff2'),
+    url('/fonts/NanumSquareRound/NanumSquareRoundL.otf') format('opentype');
+    font-display: auto;
+    font-weight: lighter;
+    font-style: normal;
+
+  }
+  @font-face {
+    font-family: 'NanumSquareRound';
+    src:  url('/fonts/NanumSquareRound/NanumSquareRoundB.woff2') format('woff2'),
+    url('/fonts/NanumSquareRound/NanumSquareRoundB.otf') format('opentype');
+    font-display: auto;
+    font-weight: bold;
+    font-style: normal;
+
+  }
+  @font-face {
+    font-family: 'NanumSquareRound';
+    src:  url('/fonts/NanumSquareRound/NanumSquareRoundEB.woff2') format('woff2'),
+    url('/fonts/NanumSquareRound/NanumSquareRoundEB.otf') format('opentype');
+    font-display: auto;
+    font-weight: bolder;
+    font-style: normal;
+
+  }
+  
+
+  

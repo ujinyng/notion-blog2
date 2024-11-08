@@ -86,8 +86,25 @@
   transition: color 50ms ease-out;
 }
 
-.toggleDarkMode:hover {
-  color: #2795e9;
+.toggleFont:hover{
+  cursor: pointer;
+  color: #68ffbd;
+}
+
+.toggleFont svg{
+  width: 1.5em;
+  height: 1.5em;
+  margin-top: 1em;
+}
+
+.toggleDarkMode svg{
+  width: 1.3em;
+  height: 1.3em;
+  color: white;
+}
+
+.toggleDarkMode:hover svg{
+  color: #68ffbd;
 }
 
 .twitter:hover {

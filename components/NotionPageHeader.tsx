@@ -24,7 +24,8 @@ function ToggleThemeButton() {
 
   return (
     <div
-      className={cs('breadcrumb', 'button', !hasMounted && styles.hidden)}
+      className={cs('breadcrumb', 'button', styles.toggleDarkMode, !hasMounted && styles.hidden)}
+      role='button'
       onClick={onToggleTheme}
     >
       {hasMounted && isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
@@ -32,13 +33,46 @@ function ToggleThemeButton() {
   )
 }
 
+// export function ToggleThemeButton() {
+//   const [hasMounted, setHasMounted] = React.useState(false)
+//   const { isDarkMode, toggleDarkMode } = useDarkMode()
+
+//   const onToggleDarkMode = React.useCallback(
+//     (e) => {
+//       e.preventDefault()
+//       toggleDarkMode()
+//     },
+//     [toggleDarkMode]
+//   )
+
+//   React.useEffect(() => {
+//     setHasMounted(true)
+//   }, [])
+
+//   return (
+//       <div className={styles.settings}>
+//         {hasMounted && (
+//           <a
+//             className={styles.toggleDarkMode}
+//             href='#'
+//             role='button'
+//             onClick={onToggleDarkMode}
+//             title='Toggle dark mode'
+//           >
+//             {isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
+//           </a>
+//         )}
+//       </div>
+//   )
+// }
+
 export function NotionPageHeader({
   block
 }: {
   block: types.CollectionViewPageBlock | types.PageBlock
 }) {
   const { components, mapPageUrl } = useNotionContext()
-
+  
   if (navigationStyle === 'default') {
     return <Header block={block} />
   }
@@ -46,8 +80,8 @@ export function NotionPageHeader({
   return (
     <header className='notion-header'>
       <div className='notion-nav-header'>
-        <Breadcrumbs block={block} rootOnly={true} />
-
+        <Breadcrumbs block={block} rootOnly={false} />
+    
         <div className='notion-nav-header-rhs breadcrumbs'>
           {navigationLinks
             ?.map((link, index) => {
@@ -78,9 +112,7 @@ export function NotionPageHeader({
               }
             })
             .filter(Boolean)}
-
           <ToggleThemeButton />
-
           {isSearchEnabled && <Search block={block} title={null} />}
         </div>
       </div>

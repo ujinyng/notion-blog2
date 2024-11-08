@@ -19,7 +19,7 @@ import { searchNotion } from '@/lib/search-notion'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
 import { Footer } from './Footer'
-import { GitHubShareButton } from './GitHubShareButton'
+// import { GitHubShareButton } from './GitHubShareButton'
 import { Loading } from './Loading'
 import { NotionPageHeader } from './NotionPageHeader'
 import { Page404 } from './Page404'
@@ -27,9 +27,20 @@ import { PageAside } from './PageAside'
 import { PageHead } from './PageHead'
 import styles from './styles.module.css'
 
+import { PageSocial } from './PageSocial'
+import { SetFontbyProperty } from './SetFontbyProperty'
+import { FontLoader } from './FontLoader'
+// import { SwitchFont } from './SwitchFont'
+
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------
+
+const SwitchFont = dynamic(() =>
+  import('./SwitchFont').then(
+    (m) => m.SwitchFont
+  )
+) 
 
 const Code = dynamic(() =>
   import('react-notion-x/build/third-party/code').then(async (m) => {
@@ -100,35 +111,36 @@ function Tweet({ id }: { id: string }) {
   return <TweetEmbed tweetId={id} />
 }
 
-const propertyLastEditedTimeValue = (
-  { block, pageHeader },
-  defaultFn: () => React.ReactNode
-) => {
-  if (pageHeader && block?.last_edited_time) {
-    return `Last updated ${formatDate(block?.last_edited_time, {
-      month: 'long'
-    })}`
-  }
+// const propertyLastEditedTimeValue = (
+//   { block, pageHeader },
+//   defaultFn: () => React.ReactNode
+// ) => {
+//   if (pageHeader && block?.last_edited_time) {
+//     return `Last updated ${formatDate(block?.last_edited_time, {
+//       month: 'long'
+//     })}`
+//   }
 
-  return defaultFn()
-}
+//   return defaultFn()
+// }
 
-const propertyDateValue = (
-  { data, schema, pageHeader },
-  defaultFn: () => React.ReactNode
-) => {
-  if (pageHeader && schema?.name?.toLowerCase() === 'published') {
-    const publishDate = data?.[0]?.[1]?.[0]?.[1]?.start_date
+// const propertyDateValue = (
+//   { data, schema, pageHeader },
+//   defaultFn: () => React.ReactNode
+// ) => {
+//   if (pageHeader && schema?.name?.toLowerCase() === 'published') {
+//     const publishDate = data?.[0]?.[1]?.[0]?.[1]?.start_date
 
-    if (publishDate) {
-      return `${formatDate(publishDate, {
-        month: 'long'
-      })}`
-    }
-  }
+//     if (publishDate) {
+//       return `${formatDate(publishDate, {
+//         month: 'long'
+//       })}`
+//     }
+//   }
 
-  return defaultFn()
-}
+//   return defaultFn()
+// }
+
 
 const propertyTextValue = (
   { schema, pageHeader },
@@ -161,9 +173,9 @@ export function NotionPage({
       Modal,
       Tweet,
       Header: NotionPageHeader,
-      propertyLastEditedTimeValue,
+      // propertyLastEditedTimeValue,
       propertyTextValue,
-      propertyDateValue
+      // propertyDateValue
     }),
     []
   )
@@ -184,20 +196,14 @@ export function NotionPage({
   const keys = Object.keys(recordMap?.block || {})
   const block = recordMap?.block?.[keys[0]]?.value
 
+  let font = ""+getPageProperty("Font", block ,recordMap)
+
   // const isRootPage =
   //   parsePageId(block?.id) === parsePageId(site?.rootNotionPageId)
-  const isBlogPost =
-    block?.type === 'page' && block?.parent_table === 'collection'
+  // const isBlogPost =
+  //   block?.type === 'page' && block?.parent_table === 'collection'
 
-  const showTableOfContents = !!isBlogPost
-  const minTableOfContentsItems = 3
 
-  const pageAside = React.useMemo(
-    () => (
-      <PageAside block={block} recordMap={recordMap} isBlogPost={isBlogPost} />
-    ),
-    [block, recordMap, isBlogPost]
-  )
 
   const footer = React.useMemo(() => <Footer />, [])
 
@@ -230,6 +236,7 @@ export function NotionPage({
   const canonicalPageUrl =
     !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
 
+  
   const socialImage = mapImageUrl(
     getPageProperty<string>('Social Image', block, recordMap) ||
       (block as PageBlock).format?.page_cover ||
@@ -241,6 +248,85 @@ export function NotionPage({
     getPageProperty<string>('Description', block, recordMap) ||
     config.description
 
+  const isNotMain =
+    block?.type === 'page' && block.parent_table === 'collection' 
+    
+  const isPostList = title === 'Others' || title ===`Blockchain Tech Research` || title ===`Web3 & Crypto` || title ===`Blockchain Data Info` || title ===`2018-2019 My Blockchain Archive` || title ===`AI Posts by Obsidian`
+
+  const isBlogPost = isNotMain && !isPostList;
+
+  let pageAside = null
+
+  const showTableOfContents = !!isBlogPost
+  const minTableOfContentsItems = 3
+  
+  // only display comments and page actions on blog post pages
+  if (isNotMain) { 
+    if (isBlogPost){ // if blog post
+      
+  //default is nanum square
+    let isDefaultFont = true
+    pageAside = (
+      
+      <div className="aside">    
+      <PageAside block={block} recordMap={recordMap} isBlogPost={isBlogPost} /> 
+      <SetFontbyProperty font={font.toString()}></SetFontbyProperty>
+      <SwitchFont toggleFont={function (): void {
+          //inner.setAttribute('style', `transform: rotate(-0.03deg)`)
+          let fontAtt: string
+          let defaultFontAtt: string
+          defaultFontAtt = `font-family: 'NanumSquare', sans-serif`
+
+          if(font!==''){
+            defaultFontAtt = `font-family: 'Binggrae-two'`
+           // defaultFontAtt = `font: normal normal normal 1em 1em 'Binggrae-two'`
+          }
+          //const defaultFontAtt = `font: normal normal normal 1em 1em 'NanumSquare', sans-serif`
+          if (isDefaultFont) {
+            //fontAtt = `font: normal normal medium 1em 1em 'NotoSerifKR', serif`
+            //fontAtt = `font-family: 'NotoSerifKR', serif`
+            fontAtt = `font-family: 'Noto Serif KR', serif`
+
+            isDefaultFont = false
+          } else {
+            fontAtt = defaultFontAtt
+            isDefaultFont = true
+          } /*
+        const inner = document.querySelector('.notion-page-content-inner')
+        inner.setAttribute('style', fontAtt)
+*/
+
+          const innertext = document.querySelectorAll('.notion-text')
+          innertext.forEach((elem) => {
+            elem.setAttribute('style', fontAtt)
+            //   elem.setAttribute('style', `font-width: normal`)
+          })
+          const list = document.querySelectorAll('.notion-list')
+          list.forEach((elem) => {
+            elem.setAttribute('style', fontAtt)
+            //   elem.setAttribute('style', `font-width: normal`)
+          })
+
+        } }      
+      />    
+      </div>
+      
+    )
+    
+    } else if(isPostList){ //if post list
+        // pageAside = (
+    
+        // )
+    }
+
+  } else { //if main
+    
+    pageAside = (     
+      <div>
+        <PageSocial />
+      </div>)
+  }
+  
   return (
     <>
       <PageHead
@@ -251,7 +337,7 @@ export function NotionPage({
         image={socialImage}
         url={canonicalPageUrl}
       />
-
+      <FontLoader site={site} />
       {isLiteMode && <BodyClassName className='notion-lite' />}
       {isDarkMode && <BodyClassName className='dark-mode' />}
 
@@ -267,7 +353,7 @@ export function NotionPage({
         rootDomain={site.domain}
         fullPage={!isLiteMode}
         previewImages={!!recordMap.preview_images}
-        showCollectionViewDropdown={false}
+        showCollectionViewDropdown={true}
         showTableOfContents={showTableOfContents}
         minTableOfContentsItems={minTableOfContentsItems}
         defaultPageIcon={config.defaultPageIcon}
@@ -279,8 +365,8 @@ export function NotionPage({
         pageAside={pageAside}
         footer={footer}
       />
-
-      <GitHubShareButton />
+      
+      {/* <GitHubShareButton /> */}
     </>
   )
 }
