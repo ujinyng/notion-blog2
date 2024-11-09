@@ -1,12 +1,7 @@
 import * as React from 'react'
-import styles from './styles.module.css'
 
-
-export const SetFontbyProperty: React.FC<{
-    font: string
-}> = ({font}) => {
-
-    const [curfont, changeFont]  = React.useState('나눔스퀘어');
+export function SetFontbyProperty({ font }: { font: string }) {
+    const [_curfont, changeFont]  = React.useState('나눔스퀘어');
     const setFontCb = React.useCallback(
         (e) => {
             e.preventDefault()
@@ -27,15 +22,15 @@ export const SetFontbyProperty: React.FC<{
         }
 
         const innertext = document.querySelectorAll('.notion-text')
-          innertext.forEach((elem) => {
+          for (const elem of innertext) {
             elem.setAttribute('style', fontAtt)
             //   elem.setAttribute('style', `font-width: normal`)
-          })
+          }
           const list = document.querySelectorAll('.notion-list')
-          list.forEach((elem) => {
+          for (const elem of list) {
             elem.setAttribute('style', fontAtt)
             //   elem.setAttribute('style', `font-width: normal`)
-          })
+          }
 
         
     },[font])

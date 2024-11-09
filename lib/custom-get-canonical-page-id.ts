@@ -1,6 +1,5 @@
 import { type ExtendedRecordMap } from 'notion-types'
-import { getPageProperty, uuidToId } from 'notion-utils'
-import { getBlockTitle } from 'notion-utils'
+import { getBlockTitle,getPageProperty, uuidToId  } from 'notion-utils'
 
 
 /**
@@ -20,7 +19,7 @@ export const getCanonicalPageId  = (
     const enTitle = normalizeTitle(getPageProperty("enTitle", block, recordMap))
     const rawTitle = getBlockTitle(block, recordMap)
     const title = normalizeTitle(rawTitle)
-    const isContainEn = /[A-Za-z]/.test(rawTitle)
+    // const isContainEn = /[A-Za-z]/.test(rawTitle)
 
     // if (!isContainEn){
 
@@ -41,18 +40,18 @@ export const getCanonicalPageId  = (
 export const normalizeTitle = (title: string | null): string => {
 
   return (title || '')
-  .replace(/ /g, '-')
-  .replace(/[^a-zA-Z0-9-\u4e00-\u9fa5]/g, '')
-  .replace(/--/g, '-')
+  .replaceAll(' ', '-')
+  .replaceAll(/[^\dA-Za-z\u4E00-\u9FA5-]/g, '')
+  .replaceAll('--', '-')
   .replace(/-$/, '')
   .replace(/^-/, '')
-  .replace(/\&/, '-')
+  .replace(/&/, '-')
   .replace(/\(\[/,'-')
   .replace(/^\(^\[/,'')
-  .replace(/\)\]/,'-')
-  .replace(/\)$\]$/,'')
+  .replace(/\)]/,'-')
+  .replace(/\)$]$/,'')
   .replace(/\?/,'')
-  .replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/,'')
+  .replace(/[|ㄱ-ㅣ가-힣]/,'')
   .trim()
   .toLowerCase()
   

@@ -4,7 +4,7 @@ import Image from 'next/legacy/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { type PageBlock } from 'notion-types'
-import { formatDate, getBlockTitle, getPageProperty } from 'notion-utils'
+import { getBlockTitle, getPageProperty } from 'notion-utils'
 import * as React from 'react'
 import BodyClassName from 'react-body-classname'
 import { type NotionComponents, NotionRenderer } from 'react-notion-x'
@@ -18,6 +18,7 @@ import { getCanonicalPageUrl, mapPageUrl } from '@/lib/map-page-url'
 import { searchNotion } from '@/lib/search-notion'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
+import { FontLoader } from './FontLoader'
 import { Footer } from './Footer'
 // import { GitHubShareButton } from './GitHubShareButton'
 import { Loading } from './Loading'
@@ -25,11 +26,9 @@ import { NotionPageHeader } from './NotionPageHeader'
 import { Page404 } from './Page404'
 import { PageAside } from './PageAside'
 import { PageHead } from './PageHead'
-import styles from './styles.module.css'
-
 import { PageSocial } from './PageSocial'
 import { SetFontbyProperty } from './SetFontbyProperty'
-import { FontLoader } from './FontLoader'
+import styles from './styles.module.css'
 // import { SwitchFont } from './SwitchFont'
 
 // -----------------------------------------------------------------------------
@@ -196,7 +195,7 @@ export function NotionPage({
   const keys = Object.keys(recordMap?.block || {})
   const block = recordMap?.block?.[keys[0]]?.value
 
-  let font = ""+getPageProperty("Font", block ,recordMap)
+  const font = ""+getPageProperty("Font", block ,recordMap)
 
   // const isRootPage =
   //   parsePageId(block?.id) === parsePageId(site?.rootNotionPageId)
@@ -297,15 +296,15 @@ export function NotionPage({
 */
 
           const innertext = document.querySelectorAll('.notion-text')
-          innertext.forEach((elem) => {
+          for (const elem of innertext) {
             elem.setAttribute('style', fontAtt)
             //   elem.setAttribute('style', `font-width: normal`)
-          })
+          }
           const list = document.querySelectorAll('.notion-list')
-          list.forEach((elem) => {
+          for (const elem of list) {
             elem.setAttribute('style', fontAtt)
             //   elem.setAttribute('style', `font-width: normal`)
-          })
+          }
 
         } }      
       />    

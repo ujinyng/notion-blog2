@@ -10,8 +10,8 @@ import { FaZhihu } from '@react-icons/all-files/fa/FaZhihu'
 import * as React from 'react'
 
 import * as config from '@/lib/config'
-// import { useDarkMode } from '@/lib/use-dark-mode'
 
+// import { useDarkMode } from '@/lib/use-dark-mode'
 import styles from './styles.module.css'
 
 // TODO: merge the data and icons from PageSocial with the social links in Footer

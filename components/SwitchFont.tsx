@@ -1,10 +1,8 @@
 import * as React from 'react'
+
 import styles from './styles.module.css'
 
-
-export const SwitchFont: React.FC<{
-    toggleFont: () => void
-}> = ({ toggleFont}) => {
+export function SwitchFont({ toggleFont }: { toggleFont: () => void }) {
 
     const [hasMounted, switchFont]  = React.useState(false);
 
@@ -18,7 +16,7 @@ export const SwitchFont: React.FC<{
 
     React.useEffect(()=>{
         switchFont(true)      
-    })
+    }, [])
 
     return (
         
