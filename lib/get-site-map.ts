@@ -3,11 +3,11 @@ import pMemoize from 'p-memoize'
 
 import type * as types from './types'
 import * as config from './config'
-import { includeNotionIdInUrls } from './config'
+// import { includeNotionIdInUrls } from './config'
 import { getCanonicalPageId } from './custom-get-canonical-page-id'
 import { notion } from './notion-api'
 
-const uuid = !!includeNotionIdInUrls
+// const uuid = !!includeNotionIdInUrls
 
 export async function getSiteMap(): Promise<types.SiteMap> {
   const partialSiteMap = await getAllPages(
@@ -54,9 +54,7 @@ async function getAllPagesImpl(
         return map
       }
 
-      const canonicalPageId = getCanonicalPageId(pageId, recordMap, {
-        uuid
-      })
+      const canonicalPageId = getCanonicalPageId(pageId, recordMap)
 
       if (map[canonicalPageId]) {
         // you can have multiple pages in different collections that have the same id

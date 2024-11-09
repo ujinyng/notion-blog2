@@ -27,7 +27,8 @@
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
     "test": "run-p test:*",
     "test:lint": "eslint .",
-    "test:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check"
+    "test:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check",
+    "generate-vercel-redirects": "NODE_OPTIONS='--loader ts-node/esm' node --experimental-specifier-resolution=node scripts/generate-vercel-redirects.ts"
   },
   "dependencies": {
     "@fisch0920/use-dark-mode": "^2.4.0",
@@ -60,12 +61,13 @@
   "devDependencies": {
     "@fisch0920/eslint-config": "^1.4.0",
     "@next/bundle-analyzer": "^15.0.2",
-    "@types/node": "^22.8.6",
+    "@types/node": "^22.9.0",
     "@types/react": "^18.0.21",
     "cross-env": "^7.0.2",
     "eslint": "^8.57.1",
     "npm-run-all2": "^7.0.1",
     "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
   "overrides": {

@@ -7,8 +7,7 @@ import { getBlockTitle,getPageProperty, uuidToId  } from 'notion-utils'
  */
 export const getCanonicalPageId  = (
   pageId: string,
-  recordMap: ExtendedRecordMap,
-  { uuid = true }: { uuid?: boolean } = {}
+  recordMap: ExtendedRecordMap
 ): string | null => {
   if (!pageId || !recordMap) return null
 
@@ -23,16 +22,13 @@ export const getCanonicalPageId  = (
 
     // if (!isContainEn){
 
-    /* if enTitle is exist, use enTitle Property */
-    if (enTitle.toString()!=='') {
-        return enTitle
-    }else {
-      if (uuid) {
-        return `${title}-${id}`
-      } else {
-        return title
-      } 
-    }
+    /* if enTitle is exist and not empty, use enTitle Property */
+    if (enTitle && enTitle.toString().trim()!=='') {
+        return `${enTitle}-${id}`
+    }else {   /* if enTitle is not exist or empty, */
+      if (!title) return id //if title is not exist, return id
+      return `${title}-${id}`//if title is exist, return title-id
+    } 
   }
   return id
 }
@@ -56,7 +52,5 @@ export const normalizeTitle = (title: string | null): string => {
   .toLowerCase()
   
 }
-// function result(result: any) {
-//   throw new Error('Function not implemented.')
-// }
+
 
