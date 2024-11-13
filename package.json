@@ -2,6 +2,7 @@
   "name": "nextjs-notion-starter-kit",
   "version": "2.0.0",
   "private": true,
+  "type": "module",
   "description": "The perfect starter kit for building beautiful websites with Next.js and Notion.",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "repository": "transitive-bullshit/nextjs-notion-starter-kit",
@@ -9,7 +10,6 @@
   "engines": {
     "node": ">=18"
   },
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -28,7 +28,8 @@
     "test": "run-p test:*",
     "test:lint": "eslint .",
     "test:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check",
-    "generate-vercel-redirects": "NODE_OPTIONS='--loader ts-node/esm' node --experimental-specifier-resolution=node scripts/generate-vercel-redirects.ts"
+    "generate-vercel-redirects": "NODE_OPTIONS='--loader ts-node/esm' node --experimental-specifier-resolution=node scripts/generate-vercel-redirects.ts",
+    "sync-topics": "NODE_OPTIONS='--experimental-specifier-resolution=node --no-warnings' yarn node --loader ts-node/esm lib/topic-utils.ts"
   },
   "dependencies": {
     "@fisch0920/use-dark-mode": "^2.4.0",
@@ -38,6 +39,7 @@
     "@vercel/og": "^0.6.3",
     "classnames": "^2.5.1",
     "date-fns": "^2.30.0",
+    "dotenv": "^16.3.1",
     "expiry-map": "^2.0.0",
     "fathom-client": "^3.4.1",
     "ky": "^1.7.2",

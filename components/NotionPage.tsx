@@ -10,6 +10,8 @@ import BodyClassName from 'react-body-classname'
 import { type NotionComponents, NotionRenderer } from 'react-notion-x'
 import TweetEmbed from 'react-tweet-embed'
 import { useSearchParam } from 'react-use'
+import { useEffect, useState } from 'react'
+import { IoMailOutline } from '@react-icons/all-files/io5/IoMailOutline'
 
 import type * as types from '@/lib/types'
 import * as config from '@/lib/config'
@@ -30,6 +32,7 @@ import { PageSocial } from './PageSocial'
 import { SetFontbyProperty } from './SetFontbyProperty'
 import styles from './styles.module.css'
 // import { SwitchFont } from './SwitchFont'
+import { SubscriptionForm } from './SubscriptionForm'
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
@@ -161,6 +164,15 @@ export function NotionPage({
   const router = useRouter()
   const lite = useSearchParam('lite')
 
+  const [showSubscribe, setShowSubscribe] = useState(false)
+
+  useEffect(() => {
+    if (window.innerWidth >= 1400) {
+      setShowSubscribe(true)
+    }
+  }, [])
+
+
   const components = React.useMemo<Partial<NotionComponents>>(
     () => ({
       nextLegacyImage: Image,
@@ -250,7 +262,7 @@ export function NotionPage({
   const isNotMain =
     block?.type === 'page' && block.parent_table === 'collection' 
     
-  const isPostList = title === 'Others' || title ===`Blockchain Tech Research` || title ===`Web3 & Crypto` || title ===`Blockchain Data Info` || title ===`2018-2019 My Blockchain Archive` || title ===`AI Posts by Obsidian`
+  const isPostList = block?.parent_id === site.categoryDBId
 
   const isBlogPost = isNotMain && !isPostList;
 
@@ -343,7 +355,10 @@ export function NotionPage({
       <NotionRenderer
         bodyClassName={cs(
           styles.notion,
-          pageId === site.rootNotionPageId && 'index-page'
+          pageId === site.rootNotionPageId && 'index-page',
+          isBlogPost && 'blog-post',
+          isPostList && 'post-list',
+          !isNotMain && 'main'
         )}
         darkMode={isDarkMode}
         components={components}
@@ -366,6 +381,22 @@ export function NotionPage({
       />
       
       {/* <GitHubShareButton /> */}
+      {(
+        <div className={styles.subscriptionWrapper}>
+          <button 
+            className={styles.subscriptionToggle}
+            onClick={() => setShowSubscribe(!showSubscribe)}
+            aria-label="Toggle subscription form"
+          >
+            <IoMailOutline />
+            구독
+          </button>
+
+          <div className={cs(styles.subscriptionContainer, showSubscribe && styles.visible)}>
+            <SubscriptionForm />
+          </div>
+        </div>
+      )}
     </>
   )
 }

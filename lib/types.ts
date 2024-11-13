@@ -38,6 +38,8 @@ export interface Site {
   // opengraph metadata
   description?: string
   image?: string
+
+  categoryDBId?: string
 }
 
 export interface SiteMap {
@@ -70,4 +72,12 @@ export interface NotionPageInfo {
   author: string
   authorImage: string
   detail: string
+}
+
+export interface SiteConfig {
+  // ... 기존 타입들 ...
+  
+  categoryDBId?: string
+
+  // ... 기존 타입들 ...
 }

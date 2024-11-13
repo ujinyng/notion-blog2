@@ -235,3 +235,175 @@
 .hidden {
   visibility: hidden;
 }
+
+.subscriptionContainer {
+  position: fixed;
+  left: 20px;
+  bottom: 80px;
+  width: 300px;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: var(--bg-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+
+.subscriptionContainer.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.subscriptionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.subscriptionInput {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--fg-color-0);
+  border-radius: 4px;
+  background: var(--bg-color);
+  color: var(--fg-color);
+  font-family: var(--notion-font);
+}
+
+.topicsLabel {
+  margin: 1rem 0;
+  color: var(--fg-color);
+  font-size: 0.9rem;
+}
+
+.tagsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  min-height: 40px;
+}
+
+.tagButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--custom-veryperi);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--custom-veryperi);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tagButton:active {
+  transform: scale(0.95);
+}
+
+.tagButton:hover {
+  background: var(--custom-veryperi);
+  color: white;
+}
+
+.tagSelected {
+  background: var(--custom-veryperi);
+  color: white;
+}
+
+.subscriptionButton {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--custom-navy);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.subscriptionButton:hover {
+  background: rgb(67, 56, 202);
+}
+
+.subscriptionButton:disabled {
+  background: var(--fg-color-3);
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  color: #e53e3e;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.successMessage {
+  color: rgb(67, 56, 202);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.loadingTopics {
+  text-align: center;
+  color: var(--fg-color-2);
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+.subscribeButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: rgb(67, 56, 202);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.subscribeButton:hover {
+  background: var(--custom-navy);
+}
+
+.subscriptionToggle {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  background: var(--bg-color);
+  color: var(--fg-color);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  z-index: 1000;
+}
+
+.subscriptionToggle:hover {
+  background: var(--fg-color-0);
+}
+
+.subscriptionToggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.subscriptionWrapper {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1000;
+}

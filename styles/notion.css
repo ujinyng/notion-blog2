@@ -1385,6 +1385,10 @@ div.notion-sync-block.notion-block-fc06f5f468224d68ab4bdde57eed5b27 {
 }
 
 .breadcrumb .title {
+  /* color: white; */
+}
+
+.notion-header .breadcrumb {
   color: white;
 }
 

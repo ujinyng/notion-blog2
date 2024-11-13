@@ -25,6 +25,16 @@ if (!rootNotionPageId) {
   throw new Error('Config error invalid "rootNotionPageId"')
 }
 
+// categoryDBId도 같은 방식으로 처리
+export const categoryDBId: string = parsePageId(
+  getSiteConfig('categoryDBId'),
+  { uuid: false }
+)
+
+if (!categoryDBId) {
+  throw new Error('Config error invalid "categoryDBId"')
+}
+
 // if you want to restrict pages to a single notion workspace (optional)
 export const rootNotionSpaceId: string | null = parsePageId(
   getSiteConfig('rootNotionSpaceId', null),
