@@ -1,15 +1,16 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import dotenv from 'dotenv'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
+import fetch from 'node-fetch'
 import { NotionAPI } from 'notion-client'
 import { getPageProperty } from 'notion-utils'
-import fetch from 'node-fetch'
 
 const __filename = fileURLToPath(import.meta.url)
-const currentDir = dirname(__filename)
-const rootDir = dirname(currentDir)
+const currentDir = path.dirname(__filename)
+const rootDir = path.dirname(currentDir)
 
-dotenv.config({ path: join(rootDir, '.env.local') })
+dotenv.config({ path: path.join(rootDir, '.env.local') })
 
 const notionClient = new NotionAPI()
 const CONVERTKIT_API_V4_KEY = process.env.CONVERTKIT_API_V4_KEY
@@ -41,11 +42,11 @@ export async function getNotionTopics() {
           console.log('Topics:', topicsProperty)
 
           if (Array.isArray(topicsProperty)) {
-            topicsProperty.forEach(topic => {
+            for (const topic of topicsProperty) {
               if (typeof topic === 'string') {
                 topics.add(topic)
               }
-            })
+            }
           }
         }
       }
@@ -58,9 +59,9 @@ export async function getNotionTopics() {
     console.log('=== End ===\n')
 
     return uniqueTopics
-  } catch (error) {
-    console.error('Error fetching Notion topics:', error)
-    throw error
+  } catch (err) {
+    console.error('Error fetching Notion topics:', err)
+    throw err
   }
 }
 
@@ -83,9 +84,9 @@ export async function authKitv4() {
     }
 
     console.log(`Successfully authenticated with ConvertKit`)
-  } catch (error) {
-    console.error(`Error authenticating with ConvertKit:`, error)
-    throw error
+  } catch (err) {
+    console.error(`Error authenticating with ConvertKit:`, err)
+    throw err
   }
 }
 
@@ -157,9 +158,9 @@ export async function createBulkTagsv4(topics: string[]) {
     console.log(`Created tags:`, data.tags.map(tag => `${tag.name} (ID: ${tag.id})`).join(', '))
     console.log(`Successfully created all tags in bulk`)
     console.log(`=== End ===\n`)
-  } catch (error) {
-    console.error(`Error creating Kit tags:`, error)
-    throw error
+  } catch (err) {
+    console.error(`Error creating Kit tags:`, err)
+    throw err
   }
 }
 
@@ -169,9 +170,9 @@ export async function syncBulkTopicsToKitTagsv4() {
     const topics = await getNotionTopics()
     await createBulkTagsv4(topics)
     console.log('Tags sync completed successfully')
-  } catch (error) {
-    console.error('Tags sync failed:', error)
-    process.exit(1)
+  } catch (err) {
+    console.error('Tags sync failed:', err)
+    throw err
   }
 }
 
@@ -185,19 +186,19 @@ export async function syncTopicsToKitTagsv4() {
     await authKitv4()
     for (const topic of topics) {
       try {
-        const result = await createKitTagv4(topic)
+        const _result = await createKitTagv4(topic)
         console.log(`Successfully created tag: ${topic}`)
-      } catch (error) {
-        console.error(`Failed to create tag ${topic}:`, error)
+      } catch (err) {
+        console.error(`Failed to create tag ${topic}:`, err)
       }
     }
-  } catch (error) {
-    console.error(`Failed to fetch topics from Notion:`, error)
-    throw error
+  } catch (err) {
+    console.error(`Failed to fetch topics from Notion:`, err)
+    throw err
   }
 }
 
 // script for local testing
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  syncTopicsToKitTagsv4()
+  await syncTopicsToKitTagsv4()
 }

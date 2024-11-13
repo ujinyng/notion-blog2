@@ -56,7 +56,7 @@ export default siteConfig({
   navigationStyle: 'custom',
   navigationLinks: [
     {
-      title: 'Project',
+      title: 'Archive',
       pageId: 'eeaf3f4be6b5438ab84bf287fe7acd64'
     }
   ],

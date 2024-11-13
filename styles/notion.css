@@ -187,7 +187,7 @@ div.notion-collection.notion-block-bcc6dc2fece946c78014c50896f0f4aa > div.notion
   font-size: 1.5rem;
 }
 
-div.notion-collection.notion-b`lock-bcc6dc2fece946c78014c50896f0f4aa > div.notion-gallery > div > div > a:nth-child(3) > div.notion-collection-card-body > div:nth-child(1) > span > span > span > span {
+div.notion-collection.notion-block-bcc6dc2fece946c78014c50896f0f4aa > div.notion-gallery > div > div > a:nth-child(3) > div.notion-collection-card-body > div:nth-child(1) > span > span > span > span {
   font-size: 1.5rem;
 }
 
@@ -923,6 +923,13 @@ div.notion-collection.notion-block-bcc6dc2fece946c78014c50896f0f4aa > div.notion
   margin: 0;
 }
 
+/* hide multi_select property in post-list, main page */
+.notion.main.notion-collection-row .notion-property.notion-property-multi_select,
+.notion.post-list .notion-collection-row .notion-property.notion-property-multi_select {
+  display: none;
+}
+
+/* multi_select property style */
 div.notion-collection-row .notion-property-multi_select  {
   margin: 0;
   width: auto;
@@ -1584,3 +1591,6 @@ ul.notion-list.notion-list-disc ul > ul > div{
 .notion-icon.searchIcon:hover {
   fill: var(--custom-sea)
 }
+
+
+

@@ -106,10 +106,10 @@ export default async function handler(
     }
 
     return res.status(200).json({ success: true })
-  } catch (error) {
-    console.error('Error processing subscription:', error)
+  } catch (err) {
+    console.error('Error processing subscription:', err)
     return res.status(500).json({
-      error: error instanceof Error ? error.message : 'An error occurred while processing the subscription',
+      error: err instanceof Error ? err.message : 'An error occurred while processing the subscription',
     })
   }
 } 

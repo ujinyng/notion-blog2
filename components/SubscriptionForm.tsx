@@ -1,5 +1,6 @@
-import { useState, FormEvent } from 'react'
 import cs from 'classnames'
+import { type FormEvent,useState } from 'react'
+
 import styles from './styles.module.css'
 
 type SubscriptionStatus = 'idle' | 'loading' | 'success' | 'error'
@@ -15,7 +16,7 @@ const DEFAULT_TOPICS = [
   'Blockchain Technology'
 ]
 
-export const SubscriptionForm: React.FC = () => {
+export function SubscriptionForm(): React.ReactElement {
   const [email, setEmail] = useState<string>('')
   const [selectedTopics, setSelectedTopics] = useState<string[]>([])
   // const [topics, setTopics] = useState<string[]>([])
@@ -86,9 +87,9 @@ export const SubscriptionForm: React.FC = () => {
       setStatus('success')
       setEmail('')
       setSelectedTopics([])
-    } catch (error) {
+    } catch (err) {
       setStatus('error')
-      setErrorMessage(error instanceof Error ? error.message : 'An unknown error occurred.')
+      setErrorMessage(err instanceof Error ? err.message : 'An unknown error occurred.')
     }
   }
 
