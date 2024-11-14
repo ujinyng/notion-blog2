@@ -39,7 +39,8 @@ export interface Site {
   description?: string
   image?: string
 
-  categoryDBId?: string
+  categoryDBId: string
+  categoryParentId: string
 }
 
 export interface SiteMap {

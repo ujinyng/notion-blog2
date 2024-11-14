@@ -5,7 +5,7 @@ import Image from 'next/legacy/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { type PageBlock } from 'notion-types'
-import { getBlockTitle, getPageProperty } from 'notion-utils'
+import { getBlockTitle, getPageProperty, parsePageId } from 'notion-utils'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import BodyClassName from 'react-body-classname'
@@ -29,7 +29,7 @@ import { Page404 } from './Page404'
 import { PageAside } from './PageAside'
 import { PageHead } from './PageHead'
 import { PageSocial } from './PageSocial'
-import { SetFontbyProperty } from './SetFontbyProperty'
+//import { SetFontbyProperty } from './SetFontbyProperty'
 import styles from './styles.module.css'
 // import { SwitchFont } from './SwitchFont'
 import { SubscriptionForm } from './SubscriptionForm'
@@ -172,7 +172,6 @@ export function NotionPage({
     }
   }, [])
 
-
   const components = React.useMemo<Partial<NotionComponents>>(
     () => ({
       nextLegacyImage: Image,
@@ -232,6 +231,7 @@ export function NotionPage({
     isDev: config.isDev,
     title,
     pageId,
+    categoryParentId: block.parent_id,
     rootNotionPageId: site.rootNotionPageId,
     recordMap
   })
@@ -259,10 +259,8 @@ export function NotionPage({
     getPageProperty<string>('Description', block, recordMap) ||
     config.description
 
-  const isNotMain =
-    block?.type === 'page' && block.parent_table === 'collection' 
-    
-  const isPostList = block?.parent_id === site.categoryDBId
+  const isNotMain = block?.type === 'page' && block.parent_table === 'collection' 
+  const isPostList = isNotMain && block?.parent_id === parsePageId(config.categoryParentId, { uuid: true })
 
   const isBlogPost = isNotMain && !isPostList;
 
@@ -274,14 +272,14 @@ export function NotionPage({
   // only display comments and page actions on blog post pages
   if (isNotMain) { 
     if (isBlogPost){ // if blog post
-      
+      console.log('Page Type: Blog Post')
   //default is nanum square
     let isDefaultFont = true
     pageAside = (
       
       <div className="aside">    
       <PageAside block={block} recordMap={recordMap} isBlogPost={isBlogPost} /> 
-      <SetFontbyProperty font={font.toString()}></SetFontbyProperty>
+      {/* <SetFontbyProperty font={font.toString()}></SetFontbyProperty> */}
       <SwitchFont toggleFont={function (): void {
           //inner.setAttribute('style', `transform: rotate(-0.03deg)`)
           let fontAtt: string
@@ -325,13 +323,15 @@ export function NotionPage({
     )
     
     } else if(isPostList){ //if post list
+      console.log('Page Type: Post List')
         // pageAside = (
     
         // )
     }
 
   } else { //if main
-    
+    console.log('Page Type: Main Page')
+
     pageAside = (     
       <div>
         <PageSocial />

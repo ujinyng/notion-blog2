@@ -25,14 +25,22 @@ if (!rootNotionPageId) {
   throw new Error('Config error invalid "rootNotionPageId"')
 }
 
-// categoryDBId도 같은 방식으로 처리
 export const categoryDBId: string = parsePageId(
   getSiteConfig('categoryDBId'),
   { uuid: false }
 )
 
+export const categoryParentId: string = parsePageId(
+  getSiteConfig('categoryParentId'),
+  { uuid: false }
+)
+
 if (!categoryDBId) {
   throw new Error('Config error invalid "categoryDBId"')
+}
+
+if (!categoryParentId) {
+  throw new Error('Config error invalid "categoryParentId"')
 }
 
 // if you want to restrict pages to a single notion workspace (optional)
@@ -168,7 +176,9 @@ export const site: Site = {
   name,
   rootNotionPageId,
   rootNotionSpaceId,
-  description
+  description,
+  categoryDBId,
+  categoryParentId
 }
 
 export const fathomId = isDev ? null : process.env.NEXT_PUBLIC_FATHOM_ID

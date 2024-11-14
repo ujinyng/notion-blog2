@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import fetch from 'node-fetch'
 import { NotionAPI } from 'notion-client'
 import { getPageProperty } from 'notion-utils'
+import { categoryDBId, categoryParentId } from './config'
 
 const __filename = fileURLToPath(import.meta.url)
 const currentDir = path.dirname(__filename)
@@ -14,9 +15,9 @@ dotenv.config({ path: path.join(rootDir, '.env.local') })
 
 const notionClient = new NotionAPI()
 const CONVERTKIT_API_V4_KEY = process.env.CONVERTKIT_API_V4_KEY
-const CATEGORY_DB_ID = 'bcc6dc2fece946c78014c50896f0f4aa'
+const CATEGORY_DB_ID = categoryDBId
 // CATEGORY_DB_ID and PARENT_ID are different
-const ParentID = '0d185e1e-84d0-4cb4-a6e1-27a185ffe7e0'
+const CATEGORY_PARENT_ID = categoryParentId
 
 export async function getNotionTopics() {
   try {
@@ -27,7 +28,7 @@ export async function getNotionTopics() {
     const topics = new Set<string>()
 
     for (const [blockId, block] of Object.entries(dbRecordMap.block)) {
-      if (block.value?.type === 'page' && block.value?.parent_id === ParentID) {
+      if (block.value?.type === 'page' && block.value?.parent_id === CATEGORY_PARENT_ID) {
       // if (block.value?.type === 'page' && block.value?.parent_id === CATEGORY_DB_ID) {
         console.log('\n=== Processing page ===')
         

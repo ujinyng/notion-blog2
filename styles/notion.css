@@ -924,8 +924,8 @@ div.notion-collection.notion-block-bcc6dc2fece946c78014c50896f0f4aa > div.notion
 }
 
 /* hide multi_select property in post-list, main page */
-.notion.main.notion-collection-row .notion-property.notion-property-multi_select,
-.notion.post-list .notion-collection-row .notion-property.notion-property-multi_select {
+.main .notion-collection-row .notion-property.notion-property-multi_select,
+.post-list .notion-collection-row .notion-property.notion-property-multi_select {
   display: none;
 }
 

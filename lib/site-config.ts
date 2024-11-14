@@ -35,7 +35,8 @@ export interface SiteConfig {
   navigationStyle?: types.NavigationStyle
   navigationLinks?: Array<NavigationLink>
 
-  categoryDBId?: string
+  categoryDBId: string
+  categoryParentId: string
 }
 
 export interface NavigationLink {
