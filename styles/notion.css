@@ -50,7 +50,7 @@ body.dark-mode {
 } */
 
 .notion-page {
-  font-family: 'NanumSquare', sans-serif;
+  /* font-family: 'NanumSquare', sans-serif; */
   font-weight: normal;
   display: inline-flex;
   max-width: 100%;
@@ -956,7 +956,7 @@ div.notion-collection-row .notion-property-multi_select  {
 }
 
 div.notion-collection-row .notion-property-text {
-  font-family: 'NanumSquare', sans-serif;
+  /* font-family: 'NanumSquare', sans-serif; */
   display: block;
   color: var(--custom-gray);
   height: auto;
@@ -1280,7 +1280,7 @@ div.aside {
 
 .notion-table-of-contents-item {
   max-width: 400px;
-  font-family: 'NanumSquare';
+  /* font-family: 'NanumSquare'; */
 }
 
 .dark-mode .notion-aside-table-of-contents {
@@ -1593,4 +1593,6 @@ ul.notion-list.notion-list-disc ul > ul > div{
 }
 
 
-
+.notion-quote {
+  font-family: 'Binggrae-two', 'serif';
+}

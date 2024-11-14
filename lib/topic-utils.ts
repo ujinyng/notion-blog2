@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import fetch from 'node-fetch'
 import { NotionAPI } from 'notion-client'
 import { getPageProperty } from 'notion-utils'
+
 import { categoryDBId, categoryParentId } from './config'
 
 const __filename = fileURLToPath(import.meta.url)
