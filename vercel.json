@@ -3,12 +3,17 @@
   "redirects": [
     {
       "source": "/uuverse",
-      "destination": "/uuverse-d6b7f5b66b9146efa2b1c24b4344b6f3",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/d6b7f5b66b9146efa2b1c24b4344b6f3",
-      "destination": "/uuverse-d6b7f5b66b9146efa2b1c24b4344b6f3",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/uuverse-d6b7f5b66b9146efa2b1c24b4344b6f3",
+      "destination": "/",
       "permanent": true
     },
     {
