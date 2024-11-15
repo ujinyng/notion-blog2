@@ -76,7 +76,7 @@ body.dark-mode {
   max-width: 200px;
 }
 
-/* main page aside */
+/* index page aside */
 @media (min-width: 720px) and (min-height: 300px){
   .index-page .notion-page-content-has-aside {
     display: flex;
@@ -179,11 +179,8 @@ body.dark-mode {
   display: none;
 }
 
-/* main index title*/
-div.notion-collection.notion-block-bcc6dc2fece946c78014c50896f0f4aa > div.notion-gallery > div > div > a:nth-child(1) > div.notion-collection-card-body > div:nth-child(1) > span > span > span > span {
-  font-size: 1.5rem;
-}
-div.notion-collection.notion-block-bcc6dc2fece946c78014c50896f0f4aa > div.notion-gallery > div > div > a:nth-child(2) > div.notion-collection-card-body > div:nth-child(1) > span > span > span > span {
+/* index title text */
+.index-page .notion-collection .notion-gallery .notion-page-title-text{
   font-size: 1.5rem;
 }
 
@@ -923,8 +920,8 @@ div.notion-collection.notion-block-bcc6dc2fece946c78014c50896f0f4aa > div.notion
   margin: 0;
 }
 
-/* hide multi_select property in post-list, main page */
-.main .notion-collection-row .notion-property.notion-property-multi_select,
+/* hide multi_select property in post-list, index page */
+.index-page .notion-collection-row .notion-property.notion-property-multi_select,
 .post-list .notion-collection-row .notion-property.notion-property-multi_select {
   display: none;
 }
@@ -1341,51 +1338,21 @@ nav .notion-table-of-contents-item-body {
 .notion-page-content-inner {
   z-index: 0;
   border-radius: 8px;
-  background-color: white;
+  background-color: unset;
   color: var(--dark-mode-background);
   padding-left: 3rem;
   padding-right: 3rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
-.dark-mode .notion-page-content-inner {
-  background: var(--dark-mode-background);
+
+.blog-post div.notion-page-content .notion-page-content-inner{
+  background-color: white;
+}
+.dark-mode div.notion-page-content.notion-page-content-has-aside > article{
+  background-color: var(--dark-mode-background);
   color: var(--dark-mode-text)
 }
-
-
-/* sync block for navy background at inner*/
-div.notion-sync-block.notion-block-fc06f5f468224d68ab4bdde57eed5b27 * {
-  background: var(--custom-navy);
-  border: var(--custom-navy);
-  height: 100%;
-  margin: 0;
-  z-index: -1;
-}
-
-.dark-mode div.notion-sync-block.notion-block-fc06f5f468224d68ab4bdde57eed5b27 * {
-  display: none;
-}
-
-
-/* navy background in inner at main */
-div.notion-sync-block.notion-block-fc06f5f468224d68ab4bdde57eed5b27 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  z-index: -1;
-}
-
-/* navy background in inner at postlist*/
-div.notion-sync-block.notion-block-fc06f5f468224d68ab4bdde57eed5b27 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  z-index: -1;
-}
-
 
 #__next > div > div.notion-frame > header > div > div.rhs > div {
   color: white;

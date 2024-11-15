@@ -208,8 +208,8 @@ export function NotionPage({
 
   const font = ""+getPageProperty("Font", block ,recordMap)
 
-  // const isRootPage =
-  //   parsePageId(block?.id) === parsePageId(site?.rootNotionPageId)
+  const isIndexPage =
+    parsePageId(block?.id) === parsePageId(site?.rootNotionPageId)
   // const isBlogPost =
   //   block?.type === 'page' && block?.parent_table === 'collection'
 
@@ -329,8 +329,8 @@ export function NotionPage({
         // )
     }
 
-  } else { //if main
-    console.log('Page Type: Main Page')
+  } else { //if root page
+    console.log('Page Type: Root Page')
 
     pageAside = (     
       <div>
@@ -355,10 +355,10 @@ export function NotionPage({
       <NotionRenderer
         bodyClassName={cs(
           styles.notion,
-          pageId === site.rootNotionPageId && 'index-page',
+          // pageId === site.rootNotionPageId && 'index-page',
           isBlogPost && 'blog-post',
           isPostList && 'post-list',
-          !isNotMain && 'main'
+          isIndexPage && 'index-page'
         )}
         darkMode={isDarkMode}
         components={components}
