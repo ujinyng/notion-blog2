@@ -78,11 +78,11 @@ export default async function notionPageInfo(
   ])
 
   const author =
-    getPageProperty<string>('Author', block, recordMap) || libConfig.author
+    getPageProperty<string>('author', block, recordMap) || libConfig.author
 
-  // const socialDescription =
-  //   getPageProperty<string>('Description', block, recordMap) ||
-  //   libConfig.description
+  const socialDescription =
+    getPageProperty<string>('Description', block, recordMap) ||
+    libConfig.description
 
   // const lastUpdatedTime = getPageProperty<number>(
   //   'Last Updated',
@@ -102,7 +102,7 @@ export default async function notionPageInfo(
           month: 'long'
         })} ${datePublished.getFullYear()}`
       : undefined
-  const detail = date || author || libConfig.domain
+  const detail = date || author || socialDescription || libConfig.domain
 
   const pageInfo: NotionPageInfo = {
     pageId,
@@ -111,7 +111,7 @@ export default async function notionPageInfo(
     imageObjectPosition,
     author,
     authorImage,
-    detail
+    detail,
   }
 
   res.setHeader(
