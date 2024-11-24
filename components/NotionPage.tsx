@@ -9,8 +9,12 @@ import { getBlockTitle, getPageProperty, parsePageId } from 'notion-utils'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import BodyClassName from 'react-body-classname'
-import { type NotionComponents, NotionRenderer } from 'react-notion-x'
-import TweetEmbed from 'react-tweet-embed'
+import {
+  type NotionComponents,
+  NotionRenderer,
+  useNotionContext
+} from 'react-notion-x'
+import { EmbeddedTweet, TweetNotFound, TweetSkeleton } from 'react-tweet'
 import { useSearchParam } from 'react-use'
 
 import type * as types from '@/lib/types'
@@ -110,7 +114,14 @@ const Modal = dynamic(
 )
 
 function Tweet({ id }: { id: string }) {
-  return <TweetEmbed tweetId={id} />
+  const { recordMap } = useNotionContext()
+  const tweet = (recordMap as types.ExtendedTweetRecordMap)?.tweets?.[id]
+
+  return (
+    <React.Suspense fallback={<TweetSkeleton />}>
+      {tweet ? <EmbeddedTweet tweet={tweet} /> : <TweetNotFound />}
+    </React.Suspense>
+  )
 }
 
 // const propertyLastEditedTimeValue = (

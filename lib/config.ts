@@ -69,7 +69,7 @@ export const name: string = getSiteConfig('name')
 export const author: string = getSiteConfig('author')
 export const domain: string = getSiteConfig('domain')
 export const description: string = getSiteConfig('description', 'Notion Blog')
-export const language: string = getSiteConfig('language', 'en')
+export const language: string = getSiteConfig('language', 'ko')
 
 // social accounts
 export const twitter: string | null = getSiteConfig('twitter', null)
@@ -170,7 +170,7 @@ export const api = {
 }
 
 // ----------------------------------------------------------------------------
-
+ 
 export const site: Site = {
   domain,
   name,

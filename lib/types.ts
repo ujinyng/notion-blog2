@@ -18,6 +18,10 @@ export interface PageProps {
   error?: PageError
 }
 
+export interface ExtendedTweetRecordMap extends ExtendedRecordMap {
+  tweets: Record<string, any>
+}
+
 export interface Params extends ParsedUrlQuery {
   pageId: string
 }
@@ -73,12 +77,4 @@ export interface NotionPageInfo {
   author: string
   authorImage: string
   detail: string
-}
-
-export interface SiteConfig {
-  // ... 기존 타입들 ...
-  
-  categoryDBId?: string
-
-  // ... 기존 타입들 ...
 }
