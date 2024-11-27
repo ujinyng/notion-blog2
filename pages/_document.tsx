@@ -7,20 +7,51 @@ export default class MyDocument extends Document {
       <IconContext.Provider value={{ style: { verticalAlign: 'middle' } }}>
         <Html lang='en'>
           <Head>
-            <link rel="preload" href="/fonts/NanumSquareRound/NanumSquareRoundR.woff2" as="font" type="font/woff2" crossOrigin=""/>
-           
-            <link rel="preload" href="/fonts/NotoSerif/NotoSerifKR-Medium.woff2" as="font" type="font/woff2" crossOrigin=""/>
-            <link rel="preload" href="/fonts/NotoSerif/NotoSerifKR-SemiBold.woff2" as="font" type="font/woff2" crossOrigin=""/>
+            <link
+              rel='preload'
+              href='/fonts/NanumSquareRound/NanumSquareRoundR.woff2'
+              as='font'
+              type='font/woff2'
+              crossOrigin=''
+            />
 
-            <link rel="preload" href="/fonts/Binggrae2/Binggrae2.woff2" as="font" type="font/woff2" crossOrigin=""/>
+            <link
+              rel='preload'
+              href='/fonts/NotoSerif/NotoSerifKR-Medium.woff2'
+              as='font'
+              type='font/woff2'
+              crossOrigin=''
+            />
+            <link
+              rel='preload'
+              href='/fonts/NotoSerif/NotoSerifKR-SemiBold.woff2'
+              as='font'
+              type='font/woff2'
+              crossOrigin=''
+            />
 
-            <link rel="preconnect" href="https://fonts.googleapis.com"/>
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin=""/>
-            <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&display=swap" rel="stylesheet"></link>
+            <link
+              rel='preload'
+              href='/fonts/Binggrae2/Binggrae2.woff2'
+              as='font'
+              type='font/woff2'
+              crossOrigin=''
+            />
+
+            <link rel='preconnect' href='https://fonts.googleapis.com' />
+            <link
+              rel='preconnect'
+              href='https://fonts.gstatic.com'
+              crossOrigin=''
+            />
+            <link
+              href='https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&display=swap'
+              rel='stylesheet'
+            ></link>
             <link rel='shortcut icon' href='/favicon.png' />
             <link rel='shortcut icon' href='/favicon.ico' />
 
-            <link href="/fonts/style.css" rel="stylesheet"/>
+            <link href='/fonts/style.css' rel='stylesheet' />
 
             <link
               rel='icon'

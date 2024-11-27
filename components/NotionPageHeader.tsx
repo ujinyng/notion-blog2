@@ -24,7 +24,12 @@ function ToggleThemeButton() {
 
   return (
     <div
-      className={cs('breadcrumb', 'button', styles.toggleDarkMode, !hasMounted && styles.hidden)}
+      className={cs(
+        'breadcrumb',
+        'button',
+        styles.toggleDarkMode,
+        !hasMounted && styles.hidden
+      )}
       role='button'
       onClick={onToggleTheme}
     >
@@ -72,7 +77,7 @@ export function NotionPageHeader({
   block: types.CollectionViewPageBlock | types.PageBlock
 }) {
   const { components, mapPageUrl } = useNotionContext()
-  
+
   if (navigationStyle === 'default') {
     return <Header block={block} />
   }
@@ -81,7 +86,7 @@ export function NotionPageHeader({
     <header className='notion-header'>
       <div className='notion-nav-header'>
         <Breadcrumbs block={block} rootOnly={false} />
-    
+
         <div className='notion-nav-header-rhs breadcrumbs'>
           {navigationLinks
             ?.map((link, index) => {

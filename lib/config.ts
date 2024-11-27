@@ -25,10 +25,9 @@ if (!rootNotionPageId) {
   throw new Error('Config error invalid "rootNotionPageId"')
 }
 
-export const categoryDBId: string = parsePageId(
-  getSiteConfig('categoryDBId'),
-  { uuid: false }
-)
+export const categoryDBId: string = parsePageId(getSiteConfig('categoryDBId'), {
+  uuid: false
+})
 
 export const categoryParentId: string = parsePageId(
   getSiteConfig('categoryParentId'),
@@ -170,7 +169,7 @@ export const api = {
 }
 
 // ----------------------------------------------------------------------------
- 
+
 export const site: Site = {
   domain,
   name,

@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 import type * as types from '../lib/types'
 
-export function FontLoader({ site }: { site: types.Site }){
+export function FontLoader({ site }: { site: types.Site }) {
   if (!site.fontFamily) {
     return null
   }

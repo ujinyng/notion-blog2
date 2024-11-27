@@ -1,5 +1,5 @@
 import cs from 'classnames'
-import { type FormEvent,useState } from 'react'
+import { type FormEvent, useState } from 'react'
 
 import styles from './styles.module.css'
 
@@ -22,8 +22,8 @@ export function SubscriptionForm(): React.ReactElement {
   // const [topics, setTopics] = useState<string[]>([])
   const [status, setStatus] = useState<SubscriptionStatus>('idle')
   const [errorMessage, setErrorMessage] = useState<string>('')
-  
-/* =======================
+
+  /* =======================
    COMMENTED OUT FOR PERFORMANCE OPTIMIZATION
    =======================
    Instead of loading a topic on every page, this was hard-coded for performance optimization.
@@ -60,10 +60,8 @@ export function SubscriptionForm(): React.ReactElement {
 */
 
   const handleTopicToggle = (topic: string) => {
-    setSelectedTopics(prev => 
-      prev.includes(topic)
-        ? prev.filter(t => t !== topic)
-        : [...prev, topic]
+    setSelectedTopics((prev) =>
+      prev.includes(topic) ? prev.filter((t) => t !== topic) : [...prev, topic]
     )
   }
 
@@ -81,7 +79,9 @@ export function SubscriptionForm(): React.ReactElement {
 
       const data = await res.json()
       if (!res.ok || data.error) {
-        throw new Error(data.error || 'An error occurred while processing the subscription.')
+        throw new Error(
+          data.error || 'An error occurred while processing the subscription.'
+        )
       }
 
       setStatus('success')
@@ -89,21 +89,25 @@ export function SubscriptionForm(): React.ReactElement {
       setSelectedTopics([])
     } catch (err) {
       setStatus('error')
-      setErrorMessage(err instanceof Error ? err.message : 'An unknown error occurred.')
+      setErrorMessage(
+        err instanceof Error ? err.message : 'An unknown error occurred.'
+      )
     }
   }
 
   return (
     <form onSubmit={subscribe} className={styles.subscriptionForm}>
       <input
-        type="email"
+        type='email'
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="이메일 주소를 입력하세요"
+        placeholder='이메일 주소를 입력하세요'
         className={styles.subscriptionInput}
         required
       />
-      <div className={styles.topicsLabel}>관심 주제를 선택해주세요. 선택하지 않으면 모든 글을 구독합니다.</div>
+      <div className={styles.topicsLabel}>
+        관심 주제를 선택해주세요. 선택하지 않으면 모든 글을 구독합니다.
+      </div>
       <div className={styles.tagsContainer}>
         {/* =======================
            COMMENTED OUT FOR PERFORMANCE OPTIMIZATION
@@ -112,7 +116,7 @@ export function SubscriptionForm(): React.ReactElement {
         {DEFAULT_TOPICS.map((topic) => (
           <button
             key={topic}
-            type="button"
+            type='button'
             onClick={() => handleTopicToggle(topic)}
             className={cs(
               styles.tagButton,
@@ -124,8 +128,8 @@ export function SubscriptionForm(): React.ReactElement {
         ))}
       </div>
 
-      <button 
-        type="submit" 
+      <button
+        type='submit'
         className={styles.subscriptionButton}
         disabled={status === 'loading'}
       >
@@ -138,11 +142,10 @@ export function SubscriptionForm(): React.ReactElement {
 
       {status === 'success' && (
         <div className={styles.successMessage}>
-          이메일을 확인하여, 구독을 확정해주세요!
-          
-          (스팸 메일함에 넘어갈 수 있습니다.)
+          이메일을 확인하여, 구독을 확정해주세요! (스팸 메일함에 넘어갈 수
+          있습니다.)
         </div>
       )}
     </form>
   )
-} 
+}

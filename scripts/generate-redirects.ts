@@ -9,12 +9,12 @@ function normalizeTitle(title: string | null): string {
     .replace(/-$/, '')
     .replace(/^-/, '')
     .replace(/&/, '-')
-    .replace(/\(\[/,'-')
-    .replace(/^\(^\[/,'')
-    .replace(/\)]/,'-')
-    .replace(/\)$]$/,'')
-    .replace(/\?/,'')
-    .replace(/[|ㄱ-ㅣ가-힣]/,'')
+    .replace(/\(\[/, '-')
+    .replace(/^\(^\[/, '')
+    .replace(/\)]/, '-')
+    .replace(/\)$]$/, '')
+    .replace(/\?/, '')
+    .replace(/[|ㄱ-ㅣ가-힣]/, '')
     .trim()
     .toLowerCase()
 }
@@ -33,7 +33,7 @@ export function generateRedirects(recordMap: ExtendedRecordMap) {
     const id = uuidToId(blockId)
     const rawTitle = getBlockTitle(block, recordMap)
     const title = normalizeTitle(rawTitle)
-    const enTitle = normalizeTitle(getPageProperty("enTitle", block, recordMap))
+    const enTitle = normalizeTitle(getPageProperty('enTitle', block, recordMap))
 
     // old url patterns
     const oldUrls = []
@@ -64,11 +64,13 @@ export function generateRedirects(recordMap: ExtendedRecordMap) {
     // redirect rule generation
     for (const oldUrl of oldUrls) {
       if (oldUrl !== newUrl) {
-        redirects.add(JSON.stringify({
-          source: oldUrl,
-          destination: newUrl,
-          permanent: true
-        }))
+        redirects.add(
+          JSON.stringify({
+            source: oldUrl,
+            destination: newUrl,
+            permanent: true
+          })
+        )
       }
     }
 
@@ -84,7 +86,7 @@ export function generateRedirects(recordMap: ExtendedRecordMap) {
     processBlock(blockId)
   }
 
-  return Array.from(redirects).map(redirect => JSON.parse(redirect as string))
+  return Array.from(redirects).map((redirect) => JSON.parse(redirect as string))
 }
 
 export function generateVercelConfig(redirects: any[]) {
@@ -104,4 +106,4 @@ async function main() {
 }
 
 main()
-*/  
+*/

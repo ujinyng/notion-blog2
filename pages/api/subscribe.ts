@@ -28,8 +28,8 @@ export default async function handler(
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           api_key: process.env.CONVERTKIT_API_KEY,
-          email,
-        }),
+          email
+        })
       }
     )
 
@@ -44,7 +44,7 @@ export default async function handler(
         {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           }
         }
       )
@@ -59,16 +59,19 @@ export default async function handler(
 
         // If the tag doesn't exist, create a new one
         if (!tagId) {
-          const tagResponse = await fetch('https://api.convertkit.com/v3/tags', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              api_key: process.env.CONVERTKIT_API_KEY,
-              tag: { name: topic },
-            }),
-          })
+          const tagResponse = await fetch(
+            'https://api.convertkit.com/v3/tags',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                api_key: process.env.CONVERTKIT_API_KEY,
+                tag: { name: topic }
+              })
+            }
+          )
 
           if (!tagResponse.ok) {
             console.error(`Tag creation response:`, await tagResponse.text())
@@ -77,7 +80,7 @@ export default async function handler(
 
           const newTag = await tagResponse.json()
           tagId = newTag.id || newTag.tag?.id
-          
+
           if (!tagId) {
             console.error('Tag response:', newTag)
             throw new Error(`Tag ID not found: ${topic}`)
@@ -92,8 +95,8 @@ export default async function handler(
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               api_key: process.env.CONVERTKIT_API_KEY,
-              email,
-            }),
+              email
+            })
           }
         )
 
@@ -109,7 +112,10 @@ export default async function handler(
   } catch (err) {
     console.error('Error processing subscription:', err)
     return res.status(500).json({
-      error: err instanceof Error ? err.message : 'An error occurred while processing the subscription',
+      error:
+        err instanceof Error
+          ? err.message
+          : 'An error occurred while processing the subscription'
     })
   }
-} 
+}

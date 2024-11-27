@@ -61,6 +61,5 @@ export default siteConfig({
       title: 'Archive',
       pageId: 'eeaf3f4be6b5438ab84bf287fe7acd64'
     }
-  ],
-
+  ]
 })

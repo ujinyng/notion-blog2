@@ -35,7 +35,6 @@ import { PageHead } from './PageHead'
 import { PageSocial } from './PageSocial'
 //import { SetFontbyProperty } from './SetFontbyProperty'
 import styles from './styles.module.css'
-// import { SwitchFont } from './SwitchFont'
 import { SubscriptionForm } from './SubscriptionForm'
 
 // -----------------------------------------------------------------------------
@@ -43,10 +42,8 @@ import { SubscriptionForm } from './SubscriptionForm'
 // -----------------------------------------------------------------------------
 
 const SwitchFont = dynamic(() =>
-  import('./SwitchFont').then(
-    (m) => m.SwitchFont
-  )
-) 
+  import('./SwitchFont').then((m) => m.SwitchFont)
+)
 
 const Code = dynamic(() =>
   import('react-notion-x/build/third-party/code').then(async (m) => {
@@ -154,7 +151,6 @@ function Tweet({ id }: { id: string }) {
 //   return defaultFn()
 // }
 
-
 const propertyTextValue = (
   { schema, pageHeader },
   defaultFn: () => React.ReactNode
@@ -195,7 +191,7 @@ export function NotionPage({
       Tweet,
       Header: NotionPageHeader,
       // propertyLastEditedTimeValue,
-      propertyTextValue,
+      propertyTextValue
       // propertyDateValue
     }),
     []
@@ -217,14 +213,12 @@ export function NotionPage({
   const keys = Object.keys(recordMap?.block || {})
   const block = recordMap?.block?.[keys[0]]?.value
 
-  const font = ""+getPageProperty("Font", block ,recordMap)
+  const font = '' + getPageProperty('Font', block, recordMap)
 
   const isIndexPage =
     parsePageId(block?.id) === parsePageId(site?.rootNotionPageId)
   // const isBlogPost =
   //   block?.type === 'page' && block?.parent_table === 'collection'
-
-
 
   const footer = React.useMemo(() => <Footer />, [])
 
@@ -258,7 +252,6 @@ export function NotionPage({
   const canonicalPageUrl =
     !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
 
-  
   const socialImage = mapImageUrl(
     getPageProperty<string>('Social Image', block, recordMap) ||
       (block as PageBlock).format?.page_cover ||
@@ -270,85 +263,92 @@ export function NotionPage({
     getPageProperty<string>('Description', block, recordMap) ||
     config.description
 
-  const isNotMain = block?.type === 'page' && block.parent_table === 'collection' 
-  const isPostList = isNotMain && block?.parent_id === parsePageId(config.categoryParentId, { uuid: true })
+  const isNotMain =
+    block?.type === 'page' && block.parent_table === 'collection'
+  const isPostList =
+    isNotMain &&
+    block?.parent_id === parsePageId(config.categoryParentId, { uuid: true })
 
-  const isBlogPost = isNotMain && !isPostList;
+  const isBlogPost = isNotMain && !isPostList
 
   let pageAside = null
 
   const showTableOfContents = !!isBlogPost
   const minTableOfContentsItems = 3
-  
+
   // only display comments and page actions on blog post pages
-  if (isNotMain) { 
-    if (isBlogPost){ // if blog post
+  if (isNotMain) {
+    if (isBlogPost) {
+      // if blog post
       console.log('Page Type: Blog Post')
-  //default is nanum square
-    let isDefaultFont = true
-    pageAside = (
-      
-      <div className="aside">    
-      <PageAside block={block} recordMap={recordMap} isBlogPost={isBlogPost} /> 
-      {/* <SetFontbyProperty font={font.toString()}></SetFontbyProperty> */}
-      <SwitchFont toggleFont={function (): void {
-          //inner.setAttribute('style', `transform: rotate(-0.03deg)`)
-          let fontAtt: string
-          let defaultFontAtt: string
-          defaultFontAtt = `font-family: 'NanumSquare', sans-serif`
+      //default is nanum square
+      let isDefaultFont = true
+      pageAside = (
+        <div className='aside'>
+          <PageAside
+            block={block}
+            recordMap={recordMap}
+            isBlogPost={isBlogPost}
+          />
+          {/* <SetFontbyProperty font={font.toString()}></SetFontbyProperty> */}
+          <SwitchFont
+            toggleFont={function (): void {
+              //inner.setAttribute('style', `transform: rotate(-0.03deg)`)
+              let fontAtt: string
+              let defaultFontAtt: string
+              defaultFontAtt = `font-family: 'NanumSquare', sans-serif`
 
-          if(font!==''){
-            defaultFontAtt = `font-family: 'Binggrae-two'`
-           // defaultFontAtt = `font: normal normal normal 1em 1em 'Binggrae-two'`
-          }
-          //const defaultFontAtt = `font: normal normal normal 1em 1em 'NanumSquare', sans-serif`
-          if (isDefaultFont) {
-            //fontAtt = `font: normal normal medium 1em 1em 'NotoSerifKR', serif`
-            //fontAtt = `font-family: 'NotoSerifKR', serif`
-            fontAtt = `font-family: 'Noto Serif KR', serif`
+              if (font !== '') {
+                defaultFontAtt = `font-family: 'Binggrae-two'`
+                // defaultFontAtt = `font: normal normal normal 1em 1em 'Binggrae-two'`
+              }
+              //const defaultFontAtt = `font: normal normal normal 1em 1em 'NanumSquare', sans-serif`
+              if (isDefaultFont) {
+                //fontAtt = `font: normal normal medium 1em 1em 'NotoSerifKR', serif`
+                //fontAtt = `font-family: 'NotoSerifKR', serif`
+                fontAtt = `font-family: 'Noto Serif KR', serif`
 
-            isDefaultFont = false
-          } else {
-            fontAtt = defaultFontAtt
-            isDefaultFont = true
-          } /*
+                isDefaultFont = false
+              } else {
+                fontAtt = defaultFontAtt
+                isDefaultFont = true
+              } /*
         const inner = document.querySelector('.notion-page-content-inner')
         inner.setAttribute('style', fontAtt)
 */
 
-          const innertext = document.querySelectorAll('.notion-text')
-          for (const elem of innertext) {
-            elem.setAttribute('style', fontAtt)
-            //   elem.setAttribute('style', `font-width: normal`)
-          }
-          const list = document.querySelectorAll('.notion-list')
-          for (const elem of list) {
-            elem.setAttribute('style', fontAtt)
-            //   elem.setAttribute('style', `font-width: normal`)
-          }
-
-        } }      
-      />    
-      </div>
-      
-    )
-    
-    } else if(isPostList){ //if post list
+              const innertext = document.querySelectorAll('.notion-text')
+              for (const elem of innertext) {
+                elem.setAttribute('style', fontAtt)
+                //   elem.setAttribute('style', `font-width: normal`)
+              }
+              const list = document.querySelectorAll('.notion-list')
+              for (const elem of list) {
+                elem.setAttribute('style', fontAtt)
+                //   elem.setAttribute('style', `font-width: normal`)
+              }
+            }}
+          />
+        </div>
+      )
+    } else if (isPostList) {
+      //if post list
       console.log('Page Type: Post List')
-        // pageAside = (
-    
-        // )
-    }
+      // pageAside = (
 
-  } else { //if root page
+      // )
+    }
+  } else {
+    //if root page
     console.log('Page Type: Root Page')
 
-    pageAside = (     
+    pageAside = (
       <div>
         <PageSocial />
-      </div>)
+      </div>
+    )
   }
-  
+
   return (
     <>
       <PageHead
@@ -390,24 +390,29 @@ export function NotionPage({
         pageAside={pageAside}
         footer={footer}
       />
-      
+
       {/* <GitHubShareButton /> */}
-      {(
+      {
         <div className={styles.subscriptionWrapper}>
-          <button 
+          <button
             className={styles.subscriptionToggle}
             onClick={() => setShowSubscribe(!showSubscribe)}
-            aria-label="Toggle subscription form"
+            aria-label='Toggle subscription form'
           >
             <IoMailOutline />
             구독
           </button>
 
-          <div className={cs(styles.subscriptionContainer, showSubscribe && styles.visible)}>
+          <div
+            className={cs(
+              styles.subscriptionContainer,
+              showSubscribe && styles.visible
+            )}
+          >
             <SubscriptionForm />
           </div>
         </div>
-      )}
+      }
     </>
   )
 }

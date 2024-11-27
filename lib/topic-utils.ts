@@ -2,7 +2,6 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import dotenv from 'dotenv'
-import fetch from 'node-fetch'
 import { NotionAPI } from 'notion-client'
 import { getPageProperty } from 'notion-utils'
 
@@ -29,16 +28,24 @@ export async function getNotionTopics() {
     const topics = new Set<string>()
 
     for (const [blockId, block] of Object.entries(dbRecordMap.block)) {
-      if (block.value?.type === 'page' && block.value?.parent_id === CATEGORY_PARENT_ID) {
-      // if (block.value?.type === 'page' && block.value?.parent_id === CATEGORY_DB_ID) {
+      if (
+        block.value?.type === 'page' &&
+        block.value?.parent_id === CATEGORY_PARENT_ID
+      ) {
+        // if (block.value?.type === 'page' && block.value?.parent_id === CATEGORY_DB_ID) {
         console.log('\n=== Processing page ===')
-        
+
         const pageRecordMap = await notionClient.getPage(blockId)
         const pageBlock = pageRecordMap.block[blockId]?.value
 
         if (pageBlock) {
-          const pageTitle = getPageProperty('Name', pageBlock, pageRecordMap) || 'Untitled'
-          const topicsProperty = getPageProperty('Topics for newsletter', pageBlock, pageRecordMap)
+          const pageTitle =
+            getPageProperty('Name', pageBlock, pageRecordMap) || 'Untitled'
+          const topicsProperty = getPageProperty(
+            'Topics for newsletter',
+            pageBlock,
+            pageRecordMap
+          )
 
           console.log(`\nPage "${pageTitle}":`)
           console.log('Topics:', topicsProperty)
@@ -73,7 +80,7 @@ export async function authKitv4() {
     const response = await fetch('https://api.kit.com/v4/account', {
       method: 'GET',
       headers: {
-        'Accept': `application/json`,
+        Accept: `application/json`,
         'X-Kit-Api-Key': `${CONVERTKIT_API_V4_KEY}`
       }
     })
@@ -93,7 +100,6 @@ export async function authKitv4() {
 }
 
 export async function createKitTagv4(topic: string) {
-  
   const response = await fetch(`https://api.kit.com/v4/tags`, {
     method: `POST`,
     headers: {
@@ -107,7 +113,7 @@ export async function createKitTagv4(topic: string) {
       }
     })
   })
-  
+
   // 응답 확인을 위한 로깅 추가
   console.log(`Full API URL:`, `https://api.kit.com/v4/tags?api_key=<hidden>`)
   console.log(`Response status:`, response.status)
@@ -126,9 +132,9 @@ export async function createBulkTagsv4(topics: string[]) {
     await authKitv4()
 
     console.log(`\n=== Creating Kit Tags in Bulk ===`)
-    
+
     const requestBody = {
-      tags: topics.map(topic => ({
+      tags: topics.map((topic) => ({
         name: topic,
         description: `Posts related to ${topic}`
       }))
@@ -146,7 +152,7 @@ export async function createBulkTagsv4(topics: string[]) {
 
     console.log(`Response status:`, response.status)
     const responseText = await response.text()
-    
+
     if (!response.ok) {
       console.error(`Error creating tags:`, {
         status: response.status,
@@ -157,7 +163,10 @@ export async function createBulkTagsv4(topics: string[]) {
     }
 
     const data = await response.json()
-    console.log(`Created tags:`, data.tags.map(tag => `${tag.name} (ID: ${tag.id})`).join(', '))
+    console.log(
+      `Created tags:`,
+      data.tags.map((tag) => `${tag.name} (ID: ${tag.id})`).join(', ')
+    )
     console.log(`Successfully created all tags in bulk`)
     console.log(`=== End ===\n`)
   } catch (err) {
@@ -181,7 +190,7 @@ export async function syncBulkTopicsToKitTagsv4() {
 export async function syncTopicsToKitTagsv4() {
   try {
     console.log(`=== Creating Kit Tags Sequentially ===`)
-    
+
     const topics = await getNotionTopics()
     console.log(`Fetched topics from Notion:`, topics)
 
