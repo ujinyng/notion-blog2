@@ -12,12 +12,13 @@ export default siteConfig({
   rootNotionSpaceId: null,
 
   // basic site info (required)
-  name: 'uuverse',
+  name: 'UJverse',
   domain: 'ujinyng.com',
   author: 'Jinyoung Yoo',
+  publisher: 'UJ',
 
   // open graph metadata (optional)
-  description: `UUVERSE is UJ's blog. Pursuing Technology for Flourising`,
+  description: `Pursuing Technology for Flourishing`,
 
   // social usernames (optional)
   twitter: 'uj_korean',

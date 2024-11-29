@@ -1,11 +1,13 @@
 import { IconContext } from '@react-icons/all-files'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 
+import * as config from '@/lib/config'
+
 export default class MyDocument extends Document {
   render() {
     return (
       <IconContext.Provider value={{ style: { verticalAlign: 'middle' } }}>
-        <Html lang='en'>
+        <Html lang={config.language}>
           <Head>
             <link
               rel='preload'

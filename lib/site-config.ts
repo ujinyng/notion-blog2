@@ -7,6 +7,7 @@ export interface SiteConfig {
   name: string
   domain: string
   author: string
+  publisher: string
   description?: string
   language?: string
 

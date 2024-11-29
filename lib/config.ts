@@ -66,6 +66,7 @@ export const isDev = environment === 'development'
 // general site config
 export const name: string = getSiteConfig('name')
 export const author: string = getSiteConfig('author')
+export const publisher: string = getSiteConfig('publisher')
 export const domain: string = getSiteConfig('domain')
 export const description: string = getSiteConfig('description', 'Notion Blog')
 export const language: string = getSiteConfig('language', 'ko')

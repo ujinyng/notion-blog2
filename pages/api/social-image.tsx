@@ -241,7 +241,11 @@ export async function getNotionPageInfo({
   //   block,
   //   recordMap
   // )
-  const publishedTime = getPageProperty<number>('Published', block, recordMap)
+  const publishedTime = getPageProperty<number>(
+    'Created Date',
+    block,
+    recordMap
+  )
   const datePublished = publishedTime ? new Date(publishedTime) : undefined
   // const dateUpdated = lastUpdatedTime
   //   ? new Date(lastUpdatedTime)
@@ -251,8 +255,10 @@ export async function getNotionPageInfo({
   const date =
     isBlogPost && datePublished
       ? `${datePublished.toLocaleString('en-US', {
-          month: 'long'
-        })} ${datePublished.getFullYear()}`
+          month: 'long',
+          year: 'numeric',
+          timeZone: 'Asia/Seoul' // Specify Korean Standard Time (KST)
+        })}`
       : undefined
   const detail = date || author || libConfig.domain
 

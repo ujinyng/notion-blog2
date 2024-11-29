@@ -4,18 +4,35 @@ import type * as types from '@/lib/types'
 import * as config from '@/lib/config'
 import { getSocialImageUrl } from '@/lib/get-social-image-url'
 
+// Function to convert UTC to UTC+9
+function convertToKST(utcDate) {
+  // Convert if utcDate is not a Date object
+  if (utcDate === undefined) return ''
+  const date = utcDate instanceof Date ? utcDate : new Date(utcDate)
+
+  // Adjust to (UTC+9)
+  const kstOffset = 9 * 60 // 9 hours in minutes
+  const localTime = new Date(date.getTime() + kstOffset * 60 * 1000)
+  return localTime.toISOString().replace('Z', '+09:00')
+}
 export function PageHead({
   site,
   title,
   description,
   pageId,
   image,
-  url
+  url,
+  createdDate,
+  updatedTime,
+  isBlogPost
 }: types.PageProps & {
   title?: string
   description?: string
   image?: string
   url?: string
+  createdDate?: any
+  updatedTime?: any
+  isBlogPost?: boolean
 }) {
   const rssFeedUrl = `${config.host}/feed`
 
@@ -28,6 +45,7 @@ export function PageHead({
     <Head>
       <meta charSet='utf-8' />
       <meta httpEquiv='Content-Type' content='text/html; charset=utf-8' />
+      <meta name='language' content={config.language} />
       <meta
         name='viewport'
         content='width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover'
@@ -61,6 +79,20 @@ export function PageHead({
 
       {config.twitter && (
         <meta name='twitter:creator' content={`@${config.twitter}`} />
+      )}
+
+      {config.author && (
+        <>
+          <meta name='author' content={config.author} />
+          <meta property='article:author' content={config.author} />
+        </>
+      )}
+
+      {config.publisher && (
+        <>
+          <meta name='publisher' content={config.publisher} />
+          <meta property='article:publisher' content={config.publisher} />
+        </>
       )}
 
       {description && (
@@ -99,6 +131,52 @@ export function PageHead({
       <meta property='og:title' content={title} />
       <meta name='twitter:title' content={title} />
       <title>{title}</title>
+
+      {/* Schema.org Markup */}
+      <script type='application/ld+json'>
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: config.name,
+          url: config.domain,
+          description,
+          author: {
+            '@type': 'Person',
+            name: config.author
+          },
+          publisher: {
+            '@type': 'Person',
+            name: config.publisher,
+            logo: {
+              '@type': 'ImageObject',
+              url: `${config.domain}/u_square-512x512.png`
+            }
+          }
+        })}
+      </script>
+
+      <script type='application/ld+json'>
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: title,
+          description,
+          image: socialImageUrl,
+          url,
+          mainEntity: isBlogPost
+            ? {
+                '@type': 'Article',
+                headline: title,
+                author: {
+                  '@type': 'Person',
+                  name: config.author
+                },
+                datePublished: convertToKST(createdDate),
+                dateModified: convertToKST(updatedTime)
+              }
+            : undefined
+        })}
+      </script>
     </Head>
   )
 }

@@ -271,6 +271,28 @@ export function NotionPage({
 
   const isBlogPost = isNotMain && !isPostList
 
+  const createdDate = isBlogPost
+    ? getPageProperty<number>('Created Date', block, recordMap)
+    : undefined
+  const updatedTime = isBlogPost
+    ? getPageProperty<number>('Updated Time', block, recordMap)
+    : undefined
+
+  const timeUpdated = updatedTime
+    ? new Date(updatedTime).toISOString()
+    : undefined
+  const dateCreated = createdDate
+    ? new Date(createdDate).toISOString()
+    : undefined
+
+  // const date = isBlogPost && dateCreated
+  // ? `${dateCreated.toLocaleString('en-US', {
+  //     month: 'long',
+  //     year: 'numeric',
+  //     timeZone: 'Asia/Seoul'  // Specify Korean Standard Time (KST)
+  //   })}`
+  // : undefined
+
   let pageAside = null
 
   const showTableOfContents = !!isBlogPost
@@ -358,6 +380,9 @@ export function NotionPage({
         description={socialDescription}
         image={socialImage}
         url={canonicalPageUrl}
+        createdDate={isBlogPost ? dateCreated : undefined}
+        updatedTime={isBlogPost ? timeUpdated : undefined}
+        isBlogPost={isBlogPost}
       />
       <FontLoader site={site} />
       {isLiteMode && <BodyClassName className='notion-lite' />}
