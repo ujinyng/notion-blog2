@@ -15,6 +15,7 @@ import interSemiBoldFont from '@/lib/fonts/inter-semibold'
 import { mapImageUrl } from '@/lib/map-image-url'
 import { notion } from '@/lib/notion-api'
 import { type NotionPageInfo, type PageError } from '@/lib/types'
+import siteConfig from '@/site.config'
 
 export const runtime = 'edge'
 
@@ -110,7 +111,7 @@ export default async function OGImage(
 
             <div
               style={{
-                fontSize: 70,
+                fontSize: 40,
                 fontWeight: 700,
                 fontFamily: 'Inter'
               }}
@@ -211,9 +212,12 @@ export async function getNotionPageInfo({
     ? `center ${(1 - imageCoverPosition) * 100}%`
     : null
 
+  const category = getPageProperty<string>('category', block, recordMap)
+
   const imageBlockUrl = mapImageUrl(
     getPageProperty<string>('Social Image', block, recordMap) ||
-      (block as PageBlock).format?.page_cover,
+      (block as PageBlock).format?.page_cover ||
+      siteConfig.categoryImageURL[category],
     block
   )
   const imageFallbackUrl = mapImageUrl(libConfig.defaultPageCover, block)

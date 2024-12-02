@@ -12,7 +12,7 @@ export default siteConfig({
   rootNotionSpaceId: null,
 
   // basic site info (required)
-  name: 'UJverse',
+  name: 'UJVERSE',
   domain: 'ujinyng.com',
   author: 'Jinyoung Yoo',
   publisher: 'UJ',
@@ -32,7 +32,7 @@ export default siteConfig({
   // default notion icon and cover images for site-wide consistency (optional)
   // page-specific values will override these site-wide defaults
   defaultPageIcon: null,
-  defaultPageCover: null,
+  defaultPageCover: 'https://gdurl.com/Q9XC',
   defaultPageCoverPosition: 0.5,
 
   // whether or not to enable support for LQIP preview images (optional)
@@ -62,5 +62,12 @@ export default siteConfig({
       title: 'Archive',
       pageId: 'eeaf3f4be6b5438ab84bf287fe7acd64'
     }
-  ]
+  ],
+  categoryImageURL: {
+      Web3Crypto: 'https://gdurl.com/cJKj',
+      BlockchainTech: 'https://gdurl.com/cJKj',
+      Random: '',
+      Dev: 'https://gdurl.com/wci8',
+      Biomedical: 'https://gdurl.com/V-Yy'
+    }
 })

@@ -969,8 +969,8 @@ div.notion-collection-row .notion-property-multi_select  {
   box-sizing: border-box;
   background-clip: content-box, border-box;
   padding: 0;
-  padding-left: 10px;
-  padding-bottom: 15px;
+  /* padding-left: 10px;
+  padding-bottom: 15px; */
   margin: 0;
   /* margin-bottom:16px; */
 }
@@ -1020,17 +1020,18 @@ div.notion-collection-row .notion-property-last_edited_time {
 
 /* 빠짐 */
 
-  /*추가됨*/
+
 /* .notion-page-cover-wrapper,
 .notion-page-cover-wrapper span,
 .notion-page-cover-wrapper img {
   max-width: 1200px !important;
   border-radius: 24px;
 } */
-  /*추가됨*/
-/* .notion-page-cover-wrapper {
-  box-shadow: 2px 2px 8px 4px rgba(15, 15, 15, 0.1);
-} */
+
+ .notion-page-cover-wrapper {
+  /* box-shadow: 2px 2px 8px 4px rgba(15, 15, 15, 0.1); */
+  display: none;
+} 
 
 /* @media only screen and (max-width: 1200px) {
     /*추가됨
@@ -1689,4 +1690,17 @@ ul.notion-list.notion-list-disc ul > ul > div{
   .index-page .notion-gallery-grid span {
     font-size: 16px;
   }
+}
+
+.notion-collection-row-property .notion-property-created_time {
+  display: none;
+}
+.notion-collection-row-property .notion-property-checkbox {
+  display: none;
+}
+.notion-collection-row-property .notion-property-url {
+  display: none;
+}
+.notion-collection-row-property .notion-property-file {
+  display: none;
 }

@@ -63,6 +63,10 @@ export interface PageUrlOverridesMap {
   [pagePath: string]: string
 }
 
+export interface CategoryImageURLMap {
+  [category: string]: string
+}
+
 export interface PageUrlOverridesInverseMap {
   // maps from a notion page id to the URL path the page should be resolved to
   // (this overrides the built-in URL path generation for these pages)
